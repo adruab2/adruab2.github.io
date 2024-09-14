@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAPC</title>
+</head>
+<body>
+    <h1>LISTA DE ACTIVIDADES</h1>
+    <h2>MIRAR LA CONSOLA</h2>
+
+    <input type="text" id="nuevaActividad" placeholder="Nueva actividad">
+    <button id="agregarBtn">Agregar Actividad</button>
+    
+    <input type="text" id="completarActividadInput" placeholder="Actividad a completar">
+    <button id="completarBtn">Marcar como Completada</button>
+
+    <button id="actualizarBtn">Actualizar Consola</button>
+
+
+    <script>
+        let actividades = [];
+
+        function agregarActividad(nombre) {
+            actividades.push({ nombre: nombre, completada: false });
+        }
+
+        agregarActividad('Desayunar');
+        agregarActividad('Hacer ejercicios');
+        agregarActividad('Escuchar música');
+        agregarActividad('Trabajar en los proyectos');
+        agregarActividad('Estudiar para el examen');
+        agregarActividad('Llamar a un amigo');
+        agregarActividad('Cocinar el almuerzo');
+        agregarActividad('Limpiar la casa');
+        agregarActividad('Ayudar a preparar la cena');
+        agregarActividad('Ir a correr');
+
+
+
+        function completarActividad(nombre) {
+            let actividad = actividades.find(actividad => actividad.nombre === nombre);
+            if (actividad) {
+                actividad.completada = true;
+            } else {
+                console.log(`La actividad "${nombre}" no se encuentra en la lista.`);
+            }
+        }
+
+
+
+        completarActividad('Desayunar');
+        completarActividad('Hacer ejercicios');
+        completarActividad('Trabajar en los proyectos');
+        completarActividad('Cocinar el almuerzo');
+        completarActividad('Escuchar música');
+
+
+
+
+        function mostrarEstadoActividades() {
+            console.log('Actividades completadas:');
+            actividades.forEach(actividad => {
+                if (actividad.completada) {
+                    console.log(`- ${actividad.nombre}`);
+                }
+            });
+
+            console.log('Actividades pendientes:');
+            actividades.forEach(actividad => {
+                if (!actividad.completada) {
+                    console.log(`- ${actividad.nombre}`);
+                }
+            });
+        }
+
+        document.getElementById('agregarBtn').addEventListener('click', function() {
+            let nuevaActividad = document.getElementById('nuevaActividad').value;
+            if (nuevaActividad) {
+                agregarActividad(nuevaActividad);
+                document.getElementById('nuevaActividad').value = ''; 
+            }
+        });
+
+        document.getElementById('completarBtn').addEventListener('click', function() {
+            let completarActividadNombre = document.getElementById('completarActividadInput').value;
+            if (completarActividadNombre) {
+                completarActividad(completarActividadNombre); 
+                document.getElementById('completarActividadInput').value = ''; 
+            }
+        });
+
+        document.getElementById('actualizarBtn').addEventListener('click', function() {
+            mostrarEstadoActividades();
+        });
+        
+
+        mostrarEstadoActividades();
+    </script>
+</body>
+<footer> Cardenas Salinas Walter Adrian </footer>
+</html>
