@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PREGUNTA6</title>
+</head>
+<body>
+    <h1>Sistema Bancario</h1>
+    
+    <div>
+        <label for="montoDeposito">Monto a depositar:</label>
+        <input type="number" id="montoDeposito" placeholder="Ingrese el monto">
+        <button onclick="depositar()">Depositar</button>
+    </div>
+    
+    <div>
+        <label for="montoRetiro">Monto a retirar:</label>
+        <input type="number" id="montoRetiro" placeholder="Ingrese el monto">
+        <button onclick="retirar()">Retirar</button>
+    </div>
+    
+    <div>
+        <button onclick="mostrarSaldo()">Ver saldo</button>
+        <p id="saldoTexto"></p>
+    </div>
+
+    <div>
+        <button onclick="mostrarITF()">Mostrar ITF</button>
+        <p id="itfTexto"></p>
+    </div>
+
+    <div>
+        <p id="mensaje"></p>
+    </div>
+
+
+
+
+    <script>
+        let saldo = 0;
+        const TASA_ITF = 0.00005;  
+
+
+        function depositar() {
+            const montoDeposito = parseFloat(document.getElementById("montoDeposito").value);
+            const mensaje = document.getElementById("mensaje");
+
+            if (montoDeposito > 0) {
+                const itf = montoDeposito * TASA_ITF;
+                saldo += montoDeposito - itf;
+                mensaje.innerText = `Depósito exitoso. ITF aplicado: S/ ${itf.toFixed(2)}`;
+            } else {
+                mensaje.innerText = "Ingrese un monto válido para depositar.";
+            }
+        }
+
+
+        function retirar() {
+            const montoRetiro = parseFloat(document.getElementById("montoRetiro").value);
+            const mensaje = document.getElementById("mensaje");
+
+            if (montoRetiro > 0 && montoRetiro <= saldo) {
+                const itf = montoRetiro * TASA_ITF;
+                saldo -= montoRetiro + itf;
+                mensaje.innerText = `Retiro exitoso. ITF aplicado: S/ ${itf.toFixed(2)}`;
+            } else if (montoRetiro > saldo) {
+                mensaje.innerText = "Saldo insuficiente para realizar el retiro.";
+            } else {
+                mensaje.innerText = "Ingrese un monto válido para retirar.";
+            }
+        }
+
+
+        function mostrarSaldo() {
+            const saldoTexto = document.getElementById("saldoTexto");
+            saldoTexto.innerText = `Saldo actual: S/ ${saldo.toFixed(2)}`;
+        }
+
+        function mostrarITF() {
+            const itfTexto = document.getElementById("itfTexto");
+            itfTexto.innerText = `Tasa de ITF: 0.005% por transacción.`;
+        }
+    </script>
+</body>
+</html>
